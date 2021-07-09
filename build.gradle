@@ -27,6 +27,8 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
     implementation group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
     implementation group: 'com.getsentry.raven', name: 'raven-logback', version: '7.0.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '1.2.1.RELEASE'
+
 }
 
 test {
