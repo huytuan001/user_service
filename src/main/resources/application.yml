@@ -1,0 +1,41 @@
+eureka:
+logging:
+  file: /var/log/user-service-application.log
+  pattern:
+    file: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta}
+            %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan}
+            %clr(:){faint} %m%n%wEx '
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: liquibase,heapdump
+        include: '*'
+  health:
+    defaults:
+      enabled: false
+server:
+  port: 8081
+spring:
+  application:
+    name: user-service
+  boot:
+    admin:
+      client:
+        auto-deregistration: true
+        instance:
+          name: User service
+          prefer-ip: true
+  datasource:
+    password: root
+#    url: 192.168.137.62:3305
+    url: jdbc:mariadb://192.168.137.62:3305/user-service
+    username: root
+  liquibase:
+    change-log: classpath:changelog/db.changelog-master.xml
+    password: root
+    url: jdbc:mariadb://192.168.137.62:3305/user-service
+    user: root
+version:
+  api:
+    v1: v1
