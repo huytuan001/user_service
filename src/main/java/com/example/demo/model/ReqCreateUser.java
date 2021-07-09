@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 @JsonIgnoreProperties
 public class ReqCreateUser {
-    @NotNull(message = "{Error.Username.Empty}")
-    @NotEmpty(message = "{Error.Username.Empty}")
+//    @NotNull(message = "{Error.Username.Empty}")
+    @NotNull(message = "Username not null")
+    @NotEmpty(message = "Username not empty")
     private String userName;
     private String password;
 

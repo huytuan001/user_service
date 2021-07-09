@@ -32,7 +32,7 @@ spring:
     url: jdbc:mariadb://192.168.137.62:3305/user-service
     username: root
   liquibase:
-    change-log: classpath:changelog/db.changelog-master.xml
+    change-log: classpath:db.changelog-master.xml
     password: root
     url: jdbc:mariadb://192.168.137.62:3305/user-service
     user: root

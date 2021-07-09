@@ -2,10 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.entity.User;
 import com.example.demo.i18n.Messages;
-import com.example.demo.model.ReqChangePassword;
-import com.example.demo.model.ReqCreateUser;
-import com.example.demo.model.ResUserData;
-import com.example.demo.model.SimpleResponse;
+import com.example.demo.model.*;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.ConfigProperties;
@@ -44,6 +41,30 @@ public class UserServiceImpl extends CrudServiceImpl<User, BigInteger> implement
         Page<User> allByStatusTrue = userRepository.getAllUserByStatus(status, pageable);
         List<ResUserData> collect = allByStatusTrue.stream().map(el -> modelMapper.map(el, ResUserData.class)).collect(Collectors.toList());
         return new PageImpl<>(collect, pageable, allByStatusTrue.getTotalElements());
+    }
+
+    @Override
+    public ResUpdateNewUser getUserByUserName(String userName) {
+        ResUpdateNewUser res = new ResUpdateNewUser();
+        try {
+            User user = userRepository.findByUserName(userName);
+            if (user != null) {
+                ResUserData data = modelMapper.map(user,ResUserData.class);
+                res.setData(data);
+                res.setReturnCode(Utils.ReturnCode.SUCCESS.getValue());
+                res.setReturnMsg(messageSource.getMessage(Messages.INFO_SUCCESS, null, ContextHelper.getLocale()));
+            } else {
+                res.setReturnCode(Utils.ReturnCode.FAIL.getValue());
+                res.setReturnMsg(messageSource.getMessage(Messages.ERROR_USER_NOT_FOUND, null, ContextHelper.getLocale()));
+                return res;
+            }
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            res.setReturnCode(Utils.ReturnCode.FAIL.getValue());
+            res.setReturnMsg(messageSource.getMessage(Messages.ERROR_EXCEPTION_UNEXPECTED, null, ContextHelper.getLocale()));
+            return res;
+        }
+        return res;
     }
 
     @Override
@@ -130,6 +151,9 @@ public class UserServiceImpl extends CrudServiceImpl<User, BigInteger> implement
                     simpleResponse.setReturnMsg(messageSource.getMessage(Messages.INFO_CHANGE_PSWD, null, ContextHelper.getLocale()));
                     simpleResponse.setReturnCode(Utils.ReturnCode.SUCCESS.getValue());
                 }
+            }else {
+                simpleResponse.setReturnCode(Utils.ReturnCode.FAIL.getValue());
+                simpleResponse.setReturnMsg(messageSource.getMessage(Messages.WARN_OLD_PSWD_NOT_MATCH, null, ContextHelper.getLocale()));
             }
 
         } catch (Exception ex) {

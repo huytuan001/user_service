@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ReqChangePassword;
-import com.example.demo.model.ReqCreateUser;
-import com.example.demo.model.ResUserData;
-import com.example.demo.model.SimpleResponse;
+import com.example.demo.model.*;
 import com.example.demo.service.UserService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigInteger;
 
 @Validated
 @RestController
@@ -29,6 +27,12 @@ public class UserController {
     public ResponseEntity<Page<ResUserData>> getAllUsers(@RequestParam Integer status, @ApiParam Pageable pageable) {
         Page<ResUserData> page = userService.getAllUser(status, pageable);
         return new ResponseEntity<>(page, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/users/{userName}")
+    @ResponseBody
+    public ResUpdateNewUser findOneByUserName(@PathVariable("userName") String userName) {
+        return userService.getUserByUserName(userName);
     }
 
     @PostMapping(value = "/create")

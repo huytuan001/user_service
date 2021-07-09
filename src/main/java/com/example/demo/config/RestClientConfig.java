@@ -12,15 +12,6 @@ import java.util.Collections;
 public class RestClientConfig {
     @Bean
     public RestTemplate restTemplate() {
-        RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory());
-        restTemplate.setInterceptors(Collections.singletonList(new CustomClientHttpRequestInterceptor()));
-        return restTemplate;
-    }
-
-    private ClientHttpRequestFactory clientHttpRequestFactory() {
-        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setReadTimeout(35 * 1000);
-        factory.setConnectTimeout(5 * 1000);
-        return factory;
+        return new RestTemplate();
     }
 }
