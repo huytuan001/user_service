@@ -7,12 +7,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.util.Locale;
 
 @SpringBootApplication
 @EnableAspectJAutoProxy
+@EnableSpringDataWebSupport
 public class UserServiceApplication {
 
     public static void main(String[] args) {

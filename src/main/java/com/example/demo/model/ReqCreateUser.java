@@ -7,9 +7,8 @@ import javax.validation.constraints.NotNull;
 
 @JsonIgnoreProperties
 public class ReqCreateUser {
-//    @NotNull(message = "{Error.Username.Empty}")
-    @NotNull(message = "Username not null")
-    @NotEmpty(message = "Username not empty")
+    @NotNull(message = "{Error.Username.Empty}")
+    @NotEmpty(message = "{Error.Username.Empty}")
     private String userName;
     private String password;
 

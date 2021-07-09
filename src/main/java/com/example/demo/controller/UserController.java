@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.*;
 import com.example.demo.service.UserService;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.math.BigInteger;
 
 @Validated
 @RestController
@@ -24,6 +23,14 @@ public class UserController {
 
     @GetMapping(value = "/users")
     @ResponseBody
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "page", value = "page number start from 0", dataType = "integer",
+                            examples = @Example(@ExampleProperty("1")), paramType = "query"),
+                    @ApiImplicitParam(name = "size", value = "maximum number of item in page", dataType = "integer",
+                            examples = @Example(@ExampleProperty("40")), paramType = "query"),
+            }
+    )
     public ResponseEntity<Page<ResUserData>> getAllUsers(@RequestParam Integer status, @ApiParam Pageable pageable) {
         Page<ResUserData> page = userService.getAllUser(status, pageable);
         return new ResponseEntity<>(page, HttpStatus.OK);

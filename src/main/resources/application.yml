@@ -16,6 +16,9 @@ management:
       enabled: false
 server:
   port: 8081
+  error:
+    include-message: always
+    include-binding-errors: always
 spring:
   application:
     name: user-service
@@ -28,13 +31,12 @@ spring:
           prefer-ip: true
   datasource:
     password: root
-#    url: 192.168.137.62:3305
-    url: jdbc:mariadb://192.168.137.62:3305/user-service
+    url: jdbc:mariadb://localhost:3305/user-service
     username: root
   liquibase:
     change-log: classpath:db.changelog-master.xml
     password: root
-    url: jdbc:mariadb://192.168.137.62:3305/user-service
+    url: jdbc:mariadb://localhost:3305/user-service
     user: root
 version:
   api:
